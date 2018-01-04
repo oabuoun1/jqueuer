@@ -1,0 +1,21 @@
+version: '2'
+services:
+    jqueuing_manager:
+        image: osabuoun/jqueuing_manager
+        #image: jqueuing_manager
+        volumes:
+            - /usr/bin/docker:/usr/bin/docker
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - front
+networks:
+    front:
+        # use the bridge driver, but enable IPv6
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+                - subnet: "192.168.253.0/24"
+                  gateway: "192.168.253.1"
